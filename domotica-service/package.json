@@ -14,7 +14,7 @@
     "lint": "eslint ."
   },
   "author": "Jhon Ramirez, jhonixt@gmail.com",
-  "license": "Publica",
+  "license": "JSON",
   "dependencies": {
     "express": "^4.13.4",
     "index.js": "0.0.3",
