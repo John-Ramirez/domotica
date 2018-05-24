@@ -1,0 +1,12 @@
+version: '3.2'
+services:
+  users-service:
+    build: ./domotica-service
+    ports:
+     - "8123:8123"
+    depends_on:
+     - db
+    environment:
+     - DATABASE_HOST=db
+  db:
+    build: ./database

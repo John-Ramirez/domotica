@@ -1,0 +1,42 @@
+{
+  "name": "domotica-service",
+  "version": "1.0.0",
+  "description": "Proyecto micro-servicio domotica",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/John-Ramirez/domotica.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha -R spec **/*.spec.js",
+    "debug": "node-debug index.js",
+    "lint": "eslint ."
+  },
+  "author": "Jhon Ramirez, jhonixt@gmail.com",
+  "license": "Publica",
+  "dependencies": {
+    "express": "^4.13.4",
+    "index.js": "0.0.3",
+    "morgan": "^1.7.0",
+    "mysql": "^2.10.2",
+    "node.js": "0.0.0",
+    "nodejs": "0.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.7.0",
+    "mocha": "^2.4.5",
+    "node-inspector": "^0.12.7",
+    "should": "^8.3.0",
+    "supertest": "^1.2.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "rules": {
+      "semi": 2
+    }
+  }
+}
