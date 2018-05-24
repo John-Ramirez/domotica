@@ -16,7 +16,7 @@ module.exports.start = (options) => {
     app.use(morgan('dev'));
 
     //  Agrega las API a la aplicación.
-    require('../api/users')(app, options);
+    require('../api/domotica')(app, options);
 
     //  Inicie la aplicación, creando un servidor en ejecución que devolvemos.
     var server = app.listen(options.port, () => {
