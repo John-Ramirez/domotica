@@ -15,8 +15,8 @@ module.exports = (app, options) => {
       var motor = 0;
 
       domotica.map((sensor) => { return {
-          temp = sensor.temperatura,
-          motor = sensor.motor
+          temp: sensor.temperatura,
+          motor: sensor.motor
           };
       });
 
