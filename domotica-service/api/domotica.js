@@ -21,11 +21,14 @@ module.exports = (app, options) => {
   });
 
   app.post('/enviar', (req, res) => {
-    
-    console.log(req.query);
 
-    options.repository.setDomotica('21','off').then((domotica) => {
-      res.send(200, {message: 'El sensor se ah recibido'});
+    var temperatura = req.query.temperatura;
+    var motor = req.query.motor;
+
+    console.log(temperatura + " - "+motor);
+
+    options.repository.setDomotica(temperatura, motor).then((domotica) => {
+      res.status(200).send("El sensor se ha recibido");
     })
 
   });
