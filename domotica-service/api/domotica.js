@@ -18,7 +18,7 @@ module.exports = (app, options) => {
           temp = sensor.temperatura,
           motor = sensor.motor
           };
-      })
+      });
 
       res.status(200).send(
         '<html><body>'+temp+'</html></body>'
