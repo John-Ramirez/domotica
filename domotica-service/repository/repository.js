@@ -32,6 +32,16 @@ class Repository {
     });
   }
 
+  setDomotica(temperatura, motor){
+    return new Promise((resolve, reject) => {
+      this.connection.query("INSERT INTO sensores (temperatura, motor) VALUES ('"+temperatura+"', '"+motor+"')", (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al guardar los sensores: ' + err));
+        }
+        console.log("1 record inserted");
+    });
+  }
+
   disconnect() {
     this.connection.end();
   }

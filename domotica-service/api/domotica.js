@@ -1,20 +1,32 @@
 //  users.js
 //
-//  Defines the users api. Add to a server by calling:
-//  require('./users')
+// Define la API de los sensores. Agregar a un servidor llamando:
+// require ('./ domotica')
 'use strict';
 
-//  Only export - adds the API to the app with the given options.
+//  Solo exportar: agrega la API a la aplicación con las opciones dadas.
 module.exports = (app, options) => {
 
-  app.get('/temperatura', (req, res, next) => {
-    options.repository.getDomotica().then((users) => {
-      res.status(200).send(users.map((sensor) => { return {
+  app.get('/recibir', (req, res, next) => {
+
+    options.repository.getDomotica().then((domotica) => {
+      res.status(200).send(domotica.map((sensor) => { return {
           temperatura: sensor.temperatura,
           motor: sensor.motor
         };
       }));
     })
     .catch(next);
+
   });
+
+  app.post('/enviar', (req, res) => {
+    
+    options.repository.setDomotica('21','off').then((domotica) => {
+      console.log(req.body);
+      res.send(200, {message: 'El sensor se ah recibido'});
+    })
+
+  });
+
 };
