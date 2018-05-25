@@ -21,9 +21,9 @@ module.exports = (app, options) => {
   });
 
   app.post('/enviar', (req, res) => {
-
-    console.log(req.body.temperatura);
     
+    console.log(req.query);
+
     options.repository.setDomotica('21','off').then((domotica) => {
       res.send(200, {message: 'El sensor se ah recibido'});
     })
