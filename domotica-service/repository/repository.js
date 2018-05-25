@@ -39,6 +39,7 @@ class Repository {
           return reject(new Error('Se produjo un error al guardar los sensores: ' + err));
         }
         console.log("1 record inserted");
+      });
     });
   }
 
