@@ -38,7 +38,9 @@ class Repository {
         if(err) {
           return reject(new Error('Se produjo un error al guardar los sensores: ' + err));
         }
-        console.log("1 record inserted");
+        console.log("1 registro insertado");
+        
+        return "1 registro insertado";
       });
     });
   }
