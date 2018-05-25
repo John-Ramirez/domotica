@@ -10,11 +10,14 @@ module.exports = (app, options) => {
   app.get('/recibir', (req, res, next) => {
 
     options.repository.getDomotica().then((domotica) => {
-      res.status(200).send(domotica.map((sensor) => { return {
+      res.status(200).send('<html><body>'+
+        domotica.map((sensor) => { return {
           temperatura: sensor.temperatura,
           motor: sensor.motor
-        };
-      }));
+          };
+        })+'</html></body>'
+      );
+
     })
     .catch(next);
 
