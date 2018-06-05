@@ -12,7 +12,8 @@ module.exports = (app, options) => {
     options.repository.getDomotica().then((domotica) => {
       res.status(200).send(domotica.map((sensor) => { return {
           temperatura: sensor.temperatura,
-          motor: sensor.motor
+          fotoresistor: sensor.fotoresistor,
+          pir: sensor.pir
         };
       }));
     })
@@ -23,11 +24,12 @@ module.exports = (app, options) => {
   app.post('/enviar', (req, res) => {
 
     var temperatura = req.query.temperatura;
-    var motor = req.query.motor;
+    var fotoresistor = req.query.fotoresistor;
+    var pir = req.query.pir;
 
-    console.log(temperatura + " - "+motor);
+    console.log(temperatura + " - "+fotoresistor+ " - "+pir);
 
-    options.repository.setDomotica(temperatura, motor).then((domotica) => {
+    options.repository.setDomotica(temperatura, fotoresistor, pir).then((domotica) => {
       res.status(200).send("El sensor se ha recibido");
     })
 

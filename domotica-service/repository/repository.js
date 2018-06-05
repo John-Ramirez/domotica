@@ -16,7 +16,7 @@ class Repository {
   getDomotica() {
     return new Promise((resolve, reject) => {
 
-      this.connection.query('SELECT temperatura, motor FROM sensores order by id DESC LIMIT 1', (err, results) => {
+      this.connection.query('SELECT temperatura, fotoresistor, pir FROM sensores order by id DESC LIMIT 1', (err, results) => {
         if(err) {
           return reject(new Error('Se produjo un error al obtener los sensores: ' + err));
         }
@@ -24,7 +24,8 @@ class Repository {
         resolve((results || []).map((sensor) => {
           return {
             temperatura: sensor.temperatura,
-            motor: sensor.motor
+            fotoresistor: sensor.fotoresistor,
+            pir: sensor.pir
           };
         }));
       });
@@ -32,13 +33,26 @@ class Repository {
     });
   }
 
-  setDomotica(temperatura, motor){
+  setDomotica(temperatura, fotoresistor, pir){
     return new Promise((resolve, reject) => {
-      this.connection.query("INSERT INTO sensores (temperatura, motor) VALUES ('"+temperatura+"', '"+motor+"')", (err, results) => {
+      this.connection.query("INSERT INTO sensores (temperatura, fotoresistor, pir) VALUES ('"+temperatura+"', '"+fotoresistor+"', '"+pir+"')", (err, results) => {
         if(err) {
           return reject(new Error('Se produjo un error al guardar los sensores: ' + err));
         }
-        console.log("1 registro insertado");
+        console.log("1 registro domotica insertado");
+
+        return true;
+      });
+    });
+  }
+
+  setEstados(servouno, servodos, motor, led, boton){
+    return new Promise((resolve, reject) => {
+      this.connection.query("INSERT INTO estados (servouno, servodos, motor, led, boton) VALUES ('"+servouno+"', '"+servodos+"', '"+motor+"', '"+led+"', '"+boton+"')", (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al guardar los sensores: ' + err));
+        }
+        console.log("1 registro estado insertado");
 
         return true;
       });
