@@ -67,6 +67,20 @@ module.exports = (app, options) => {
     console.log(servouno + " - " + servodos + " - " + motor + " - "+ led);
 
     options.repository.setEstados(servouno, servodos, motor, led).then((domotica) => {
+      res.status(200).send("los estados se ha recibido");
+    })
+
+  });
+
+
+  app.post('/estado', (req, res) => {
+
+    var columna = req.query.columna;
+    var valor = req.query.valor;
+
+    console.log(columna + " - " + valor);
+
+    options.repository.setQuery(columna, valor).then((domotica) => {
       res.status(200).send("El estado se ha recibido");
     })
 

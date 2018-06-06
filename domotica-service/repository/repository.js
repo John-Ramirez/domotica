@@ -83,6 +83,20 @@ class Repository {
   }
 
 
+  setQuery(columna, valor){
+    return new Promise((resolve, reject) => {
+      this.connection.query("UPDATE estados SET "+columna+" = '"+valor+"' ", (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al guardar el estado: ' + err));
+        }
+        console.log("1 registro estado actualizado");
+
+        return true;
+      });
+    });
+  }
+
+
 
   getLcd() {
     return new Promise((resolve, reject) => {
