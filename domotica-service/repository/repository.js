@@ -46,11 +46,34 @@ class Repository {
     });
   }
 
-  setEstados(servouno, servodos, motor, led, boton){
+
+  getEstados() {
     return new Promise((resolve, reject) => {
-      this.connection.query("INSERT INTO estados (servouno, servodos, motor, led, boton) VALUES ('"+servouno+"', '"+servodos+"', '"+motor+"', '"+led+"', '"+boton+"')", (err, results) => {
+
+      this.connection.query('SELECT servouno, servodos, motor, led FROM estados order by id DESC LIMIT 1', (err, results) => {
         if(err) {
-          return reject(new Error('Se produjo un error al guardar los sensores: ' + err));
+          return reject(new Error('Se produjo un error al obtener los estados: ' + err));
+        }
+
+        resolve((results || []).map((estado) => {
+          return {
+            servouno: estado.servouno,
+            servodos: estado.servodos,
+            motor: estado.motor,
+            led: estado.led
+          };
+        }));
+      });
+
+    });
+  }
+
+
+  setEstados(servouno, servodos, motor, led){
+    return new Promise((resolve, reject) => {
+      this.connection.query("INSERT INTO estados (servouno, servodos, motor, led) VALUES ('"+servouno+"', '"+servodos+"', '"+motor+"', '"+led+"')", (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al guardar los estados: ' + err));
         }
         console.log("1 registro estado insertado");
 
@@ -59,9 +82,68 @@ class Repository {
     });
   }
 
+
+
+  getLcd() {
+    return new Promise((resolve, reject) => {
+
+      this.connection.query('SELECT textouno, textodos FROM lcd order by id DESC LIMIT 1', (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al obtener el lcd: ' + err));
+        }
+
+        resolve((results || []).map((lcd) => {
+          return {
+            textouno: lcd.textouno,
+            textodos: lcd.textodos
+          };
+        }));
+      });
+
+    });
+  }
+
+
+
+  setLcd(textouno, textodos){
+    return new Promise((resolve, reject) => {
+      this.connection.query("INSERT INTO lcd (textouno, textodos) VALUES ('"+textouno+"', '"+textodos+"')", (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al guardar el lcd: ' + err));
+        }
+        console.log("1 registro lcd insertado");
+
+        return true;
+      });
+    });
+  }
+
+
+  getReporte() {
+    return new Promise((resolve, reject) => {
+
+      this.connection.query('SELECT temperatura, fotoresistor, pir FROM sensores', (err, results) => {
+        if(err) {
+          return reject(new Error('Se produjo un error al obtener los sensores: ' + err));
+        }
+
+        resolve((results || []).map((sensor) => {
+          return {
+            temperatura: sensor.temperatura,
+            fotoresistor: sensor.fotoresistor,
+            pir: sensor.pir
+          };
+        }));
+      });
+
+    });
+  }
+  
   disconnect() {
     this.connection.end();
   }
+
+
 }
 
 //  Una y única función exportada, devuelve un repositorio conectado.
